@@ -33,9 +33,16 @@ npm run preview  # preview the production build
 A workflow is included at `.github/workflows/deploy.yml`.
 
 1. Create a repository and push this project to the `main` branch.
-2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
-3. Push to `main` (or run the workflow manually). The site will be published at
-   `https://<user>.github.io/<repo>/`.
+2. Open **Settings → Pages** and set **Build and deployment → Source** to
+   **GitHub Actions**. This must be done before the workflow can deploy; the
+   default `GITHUB_TOKEN` cannot create the Pages site. The `enablement` input on
+   `configure-pages` only works with a PAT or GitHub App token that has
+   administration and Pages write access.
+3. Push to `main` (or run the workflow manually). If an earlier run failed at
+   **Configure Pages**, enable Pages as above and re-run the failed job. The site
+   will be published at `https://<user>.github.io/<repo>/`.
+4. If **GitHub Actions** is not offered as a source, the repository is private on
+   a plan without Pages, or an organization policy has disabled Pages.
 
 `vite.config.ts` uses `base: './'`, so assets resolve correctly from any project
 subpath. No 404 redirect trick is needed because navigation uses in-page anchors

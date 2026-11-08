@@ -33,6 +33,10 @@ jobs:
       - name: Build the static site
         run: npm run build
 
+      # Pages must already be enabled for this repository with
+      # Settings -> Pages -> Source: GitHub Actions. The default GITHUB_TOKEN
+      # cannot create the Pages site; configure-pages' `enablement` option needs
+      # a PAT or GitHub App token with administration and Pages write access.
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
